@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application android:allowBackup="false" android:label="Zambur Namaz Widget" android:supportsRtl="true" android:theme="@android:style/Theme.Material.Light.NoActionBar">
-        <receiver android:name=".PrayerWidgetProvider" android:exported="false" android:label="Zambur Namaz">
+        <receiver android:name=".PrayerWidgetProvider" android:exported="true" android:label="Zambur Namaz">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.intent.action.TIME_SET" />
