@@ -8,7 +8,7 @@ import android.content.Intent
 import android.widget.RemoteViews
 import com.batoulapps.adhan.CalculationMethod
 import com.batoulapps.adhan.Coordinates
-import com.batoulapps.adhan.DateComponents
+import com.batoulapps.adhan.data.DateComponents
 import com.batoulapps.adhan.Madhab
 import com.batoulapps.adhan.Prayer
 import com.batoulapps.adhan.PrayerTimes
@@ -45,7 +45,7 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                 val coordinates = Coordinates(40.4093, 49.8671)
                 val params = CalculationMethod.MUSLIM_WORLD_LEAGUE.parameters
                 params.madhab = Madhab.SHAFI
-                val today = PrayerTimes(coordinates, DateComponents.from(calendar), params)
+                val today = PrayerTimes(coordinates, DateComponents.from(now), params)
                 val todayTimes = listOf(today.fajr, today.sunrise, today.dhuhr, today.asr, today.maghrib, today.isha)
                 val formatter = SimpleDateFormat("HH:mm", Locale("az", "AZ")).apply { timeZone = TimeZone.getDefault() }
                 viewIds.forEachIndexed { i, id -> views.setTextViewText(id, formatter.format(todayTimes[i])) }
@@ -55,7 +55,7 @@ class PrayerWidgetProvider : AppWidgetProvider() {
                     "Məğrib" to today.maghrib, "İşa" to today.isha
                 ).firstOrNull { it.second.after(now) } ?: run {
                     val tomorrow = Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, 1) }
-                    val tomorrowTimes = PrayerTimes(coordinates, DateComponents.from(tomorrow), params)
+                    val tomorrowTimes = PrayerTimes(coordinates, DateComponents.from(tomorrow.time), params)
                     "Sübh" to tomorrowTimes.fajr
                 }
 
